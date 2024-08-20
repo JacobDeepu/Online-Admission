@@ -14,6 +14,7 @@ class PermissionSeeder extends Seeder
     {
         $arrayOfPermissionNames = [
             'view an institution', 'create an institution', 'update an institution', 'delete an institution',
+            'view any role', 'create a role', 'edit a role', 'delete a role',
         ];
         $permissions = collect($arrayOfPermissionNames)->map(function ($permission) {
             return ['name' => $permission, 'guard_name' => 'sanctum'];
