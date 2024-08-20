@@ -3,6 +3,7 @@
 use App\Http\Controllers\FormBuilderController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -51,5 +52,6 @@ Route::middleware([
     Route::get('/registrations/data/', [RegistrationController::class, 'getData']);
 
     Route::resource('roles', RoleController::class);
+    Route::resource('users', UserController::class);
 });
 Route::get('/export-pdf/{registration}', [RegistrationController::class, 'exportPDF'])->name('export');
