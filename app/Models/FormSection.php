@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class FormSection extends Model
 {
@@ -18,6 +20,22 @@ class FormSection extends Model
         'institution_id',
         'name',
         'icon',
-        'description'
+        'description',
     ];
+
+    /**
+     * Get the subSections for the section.
+     */
+    public function subSections(): HasMany
+    {
+        return $this->hasMany(FormSubSection::class);
+    }
+
+    /**
+     * Get all of the sections's fields.
+     */
+    public function fields(): MorphMany
+    {
+        return $this->morphMany(FormField::class, 'formable');
+    }
 }
