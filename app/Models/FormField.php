@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphTo;
 
 class FormField extends Model
 {
@@ -20,6 +21,29 @@ class FormField extends Model
         'type',
         'options',
         'is_required',
-        'validation_rules'
+        'validation_rules',
+        'order',
+        'formable_id',
+        'formable_type',
     ];
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'options' => 'array',
+        ];
+    }
+
+    /**
+     * Get the parent formable model (section or subsection).
+     */
+    public function formable(): MorphTo
+    {
+        return $this->morphTo();
+    }
 }

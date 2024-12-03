@@ -15,10 +15,15 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('label');
-            $table->enum('type', ['text', 'textarea', 'number', 'date', 'select', 'checkbox', 'radio', 'file']);
+            $table->enum('type', [
+                'text', 'number', 'date', 'email', 'textarea', 'select', 'radio', 'checkbox',
+            ]);
             $table->text('options')->nullable();
             $table->boolean('is_required')->default(false);
             $table->text('validation_rules')->nullable();
+            $table->integer('order')->unsigned()->default(0);
+            $table->unsignedBigInteger('formable_id');
+            $table->enum('formable_type', ['section', 'subsection']);
             $table->timestamps();
         });
     }
