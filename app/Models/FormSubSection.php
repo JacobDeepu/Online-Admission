@@ -18,6 +18,7 @@ class FormSubSection extends Model
         'form_section_id',
         'name',
         'icon',
-        'description'
+        'order',
+        'description',
     ];
 }
