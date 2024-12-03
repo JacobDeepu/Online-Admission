@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FormBuilderController;
 use App\Http\Controllers\RegistrationController;
 use Illuminate\Support\Facades\Route;
 
@@ -38,6 +39,8 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+
+    Route::get('/form-builder', [FormBuilderController::class, 'index']);
 
     Route::resource('registration', RegistrationController::class)
         ->only([
