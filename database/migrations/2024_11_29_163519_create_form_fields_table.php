@@ -23,7 +23,7 @@ return new class extends Migration
             $table->text('validation_rules')->nullable();
             $table->integer('order')->unsigned()->default(0);
             $table->unsignedBigInteger('formable_id');
-            $table->enum('formable_type', ['section', 'subsection']);
+            $table->string('formable_type');
             $table->timestamps();
         });
     }
