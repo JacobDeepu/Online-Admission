@@ -17,6 +17,11 @@
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link href="{{ route('institutions.index') }}" :active="request()->routeIs('institutions.*')">
+                        {{ __('Institution') }}
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link href="{{ route('registration.index') }}" :active="request()->routeIs('registration.*')">
                         {{ __('Registration') }}
                     </x-nav-link>
@@ -161,6 +166,9 @@
         <div class="space-y-1 pb-3 pt-2">
             <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link href="{{ route('institutions.index') }}" :active="request()->routeIs('institutions.*')">
+                {{ __('Institution') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link href="{{ route('registration.index') }}" :active="request()->routeIs('registration.*')">
                 {{ __('Registration') }}

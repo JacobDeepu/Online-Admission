@@ -20,6 +20,22 @@ class Institution extends Model
         'name',
         'code',
         'logo_file_path',
-        'description'
+        'description',
     ];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array<int, string>
+     */
+    protected $appends = [
+        'logo_url',
+    ];
+
+    public function getLogoUrlAttribute()
+    {
+        $logoUrl = $this->attributes['logo_file_path'] ?? url('storage/'.$this->attributes['logo_file_path']);
+
+        return $logoUrl;
+    }
 }
