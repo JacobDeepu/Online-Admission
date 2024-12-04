@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('form_fields', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->string('label');
             $table->enum('type', [
                 'text', 'number', 'date', 'email', 'textarea', 'select', 'radio', 'checkbox',
@@ -22,8 +22,7 @@ return new class extends Migration
             $table->boolean('is_required')->default(false);
             $table->text('validation_rules')->nullable();
             $table->integer('order')->unsigned()->default(0);
-            $table->unsignedBigInteger('formable_id');
-            $table->string('formable_type');
+            $table->morphs('formable');
             $table->timestamps();
         });
     }
