@@ -17,7 +17,13 @@ return new class extends Migration
                 ->cascadeOnDelete()
                 ->constrained();
             $table->json('submission_data');
+            $table->foreignId('submitted_by')
+                ->constrained('users');
+            $table->foreignId('verified_by')
+                ->constrained('users');
+            $table->enum('status', ['pending', 'verified', 'approved', 'rejected']);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

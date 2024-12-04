@@ -5,10 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Casts\AsCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class FormSubmission extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -18,6 +20,9 @@ class FormSubmission extends Model
     protected $fillable = [
         'institution_id',
         'submission_data',
+        'submitted_by',
+        'verified_by',
+        'status',
     ];
 
     /**
