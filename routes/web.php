@@ -57,3 +57,4 @@ Route::middleware([
 });
 Route::get('/export-pdf/{registration}', [RegistrationController::class, 'exportPDF'])->name('export');
 Route::get('/print/{formSubmission}', [FormSubmissionController::class, 'print'])->name('print');
+Route::get('/institutions/{institution}/apply', [InstitutionController::class, 'applicationForm'])->name('apply');

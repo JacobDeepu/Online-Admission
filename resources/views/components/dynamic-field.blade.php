@@ -1,42 +1,42 @@
 @props(['field'])
 @switch($field['type'])
     @case('text')
-        <div class="mt-0">
+        <div class="mt-0 sm:col-span-4">
             <x-input-float-label class="block w-full" name="formData.{{ $field['name'] }}" type="text" wire:model="formData.{{ $field['name'] }}" label="{{ __($field['label']) }}" @mouseenter="addFocus"
                 isRequired="{{ $field['is_required'] }}" />
         </div>
     @break
 
     @case('email')
-        <div class="mt-0">
+        <div class="mt-0 sm:col-span-4">
             <x-input-float-label class="block w-full" name="formData.{{ $field['name'] }}" type="email" wire:model="formData.{{ $field['name'] }}" label="{{ __($field['label']) }}" @mouseenter="addFocus"
                 isRequired="{{ $field['is_required'] }}" />
         </div>
     @break
 
     @case('number')
-        <div class="mt-0">
+        <div class="mt-0 sm:col-span-4">
             <x-input-float-label class="block w-full" name="formData.{{ $field['name'] }}" type="number" wire:model="formData.{{ $field['name'] }}" label="{{ __($field['label']) }}" @mouseenter="addFocus"
                 isRequired="{{ $field['is_required'] }}" />
         </div>
     @break
 
     @case('textarea')
-        <div class="mt-0">
+        <div class="mt-0 sm:col-span-6">
             <x-textarea-float-label class="block w-full" name="formData.{{ $field['name'] }}" wire:model="formData.{{ $field['name'] }}" label="{{ __($field['label']) }}" @mouseenter="addFocus"
                 isRequired="{{ $field['is_required'] }}" />
         </div>
     @break
 
     @case('date')
-        <div class="mt-0">
+        <div class="mt-0 sm:col-span-4">
             <x-input-float-label class="block w-full" name="formData.{{ $field['name'] }}" type="date" wire:model="formData.{{ $field['name'] }}" label="{{ __($field['label']) }}" @mouseenter="addFocus"
                 isRequired="{{ $field['is_required'] }}" />
         </div>
     @break
 
     @case('select')
-        <div class="mt-0">
+        <div class="mt-0 sm:col-span-4">
             <x-select class="block w-full" name="formData.{{ $field['name'] }}" wire:model="formData.{{ $field['name'] }}" label="{{ __($field['label']) }}" @mouseenter="addFocus"
                 isRequired="{{ $field['is_required'] }}">
                 @foreach ($field['options'] as $option)
@@ -47,13 +47,13 @@
     @break
 
     @case('checkbox')
-        <div class="mt-0">
+        <div class="mt-0 sm:col-span-2">
             <input class="mt-1" id="{{ $field['name'] }}" type="checkbox" wire:model="formData.{{ $field['name'] }}" />
         </div>
     @break
 
     @case('radio')
-        <div class="mt-0">
+        <div class="mt-0 sm:col-span-2">
             @foreach (json_decode($field['options']) as $option)
                 <label>
                     <input class="mr-2" type="radio" value="{{ $option }}" wire:model="formData.{{ $field['name'] }}" /> {{ $option }}
@@ -63,7 +63,7 @@
     @break
 
     @case('file')
-        <div class="mt-0">
+        <div class="mt-0 sm:col-span-2">
             <x-input-file class="block w-full" name="formData.{{ $field['name'] }}" wire:model="formData.{{ $field['name'] }}" label="{{ __($field['label']) }}" isRequired="{{ $field['is_required'] }}" />
         </div>
     @break

@@ -124,4 +124,14 @@ class InstitutionController extends Controller
 
         return view('institutions.form-builder', compact('institution'));
     }
+
+    /**
+     * Show application form of the Institution
+     */
+    public function applicationForm(Institution $institution)
+    {
+        $instructionsPath = 'images/instructions'.$institution->code.'.jpg';
+
+        return view('institutions.application-form', compact('institution', 'instructionsPath'));
+    }
 }
