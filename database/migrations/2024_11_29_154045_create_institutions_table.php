@@ -15,7 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('code');
-            $table->string('logo_file_path');
+            $table->string('email');
+            $table->string('phone');
+            $table->string('color_code');
+            $table->string('logo_file_path')->nullable();
+            $table->string('header_file_path')->nullable();
             $table->string('description')->nullable();
             $table->timestamps();
             $table->softDeletes();

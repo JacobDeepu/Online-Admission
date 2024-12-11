@@ -41,11 +41,16 @@ class InstitutionController extends Controller
         $data = $request->validate([
             'name' => 'required|string|max:255',
             'code' => 'required|string|max:255',
-            'logo_file_path' => 'nullable|file|mimes:jpg,jpeg,png|max:2048',
+            'email' => 'required|email|max:255',
+            'phone' => 'required|string|max:255',
+            'color_code' => 'required|string|max:255',
         ]);
 
         if ($request->hasFile('logo_file_path')) {
             $data['logo_file_path'] = $request->file('logo_file_path')->store('logos', 'public');
+        }
+        if ($request->hasFile('header_file_path')) {
+            $data['header_file_path'] = $request->file('header_file_path')->store('headers', 'public');
         }
 
         Institution::create($data);
@@ -81,11 +86,16 @@ class InstitutionController extends Controller
         $data = $request->validate([
             'name' => 'required|string|max:255',
             'code' => 'required|string|max:255',
-            'logo_file_path' => 'nullable|file|mimes:jpg,jpeg,png|max:2048',
+            'email' => 'required|email|max:255',
+            'phone' => 'required|string|max:255',
+            'color_code' => 'required|string|max:255',
         ]);
 
         if ($request->hasFile('logo_file_path')) {
             $data['logo_file_path'] = $request->file('logo_file_path')->store('logos', 'public');
+        }
+        if ($request->hasFile('header_file_path')) {
+            $data['header_file_path'] = $request->file('header_file_path')->store('headers', 'public');
         }
 
         $institution->update($data);
