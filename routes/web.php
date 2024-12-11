@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FormSubmissionController;
 use App\Http\Controllers\InstitutionController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\RoleController;
@@ -55,3 +56,4 @@ Route::middleware([
     Route::get('/institutions/{institution}/form-builder', [InstitutionController::class, 'formBuilder'])->name('form-builder');
 });
 Route::get('/export-pdf/{registration}', [RegistrationController::class, 'exportPDF'])->name('export');
+Route::get('/print/{formSubmission}', [FormSubmissionController::class, 'print'])->name('print');
