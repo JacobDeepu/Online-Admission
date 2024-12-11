@@ -18,9 +18,13 @@ return new class extends Migration
                 ->constrained();
             $table->json('submission_data');
             $table->foreignId('submitted_by')
-                ->constrained('users');
+                ->nullable()
+                ->constrained('users')
+                ->nullOnDelete();
             $table->foreignId('verified_by')
-                ->constrained('users');
+                ->nullable()
+                ->constrained('users')
+                ->nullOnDelete();
             $table->enum('status', ['pending', 'verified', 'approved', 'rejected']);
             $table->timestamps();
             $table->softDeletes();
