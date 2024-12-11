@@ -13,7 +13,7 @@
         </button>
     </div>
 
-    @livewire('form-builder.modals.section-modal')
+    @livewire('form-builder.modals.section-modal', ['institutionId' => $institution->id])
     @livewire('form-builder.modals.sub-section-modal')
     @livewire('form-builder.modals.field-modal')
 </div>

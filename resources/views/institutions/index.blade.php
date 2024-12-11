@@ -41,7 +41,7 @@
                             <th class="px-6 py-3" scope="col">
                                 Code
                             </th>
-                            @canany(['edit an institution', 'delete an institution'])
+                            @canany(['edit an institution', 'delete an institution', 'use form-builder'])
                                 <th class="px-6 py-3" scope="col">
                                     Action
                                 </th>
@@ -57,32 +57,39 @@
                                 <td class="px-6 py-4">
                                     {{ $institution->code }}
                                 </td>
-                                @can('edit a institution')
-                                    <td class="flex items-center px-6 py-4">
-                                        <x-link class="bg-indigo-700 text-white hover:bg-indigo-800 focus:ring-indigo-300" href="{{ route('institutions.edit', $institution) }}">
-                                            <svg class="feather feather-check-square mr-1 h-4 w-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                                <polyline points="9 11 12 14 22 4"></polyline>
-                                                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
-                                            </svg> Edit
-                                        </x-link>
-                                    @endcan
-                                    @can('delete a institution')
-                                        <form class="inline-block px-2" method="POST" action="{{ route('institutions.destroy', $institution) }}">
-                                            @csrf
-                                            @method('DELETE')
-                                            <x-danger-button type="submit" onclick="return confirm('Are you sure?')">
-                                                <svg class="feather feather-trash-2 mr-1 h-4 w-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                @canany(['edit an institution', 'delete an institution', 'use form-builder'])
+                                    <td class="flex items-center space-x-4 px-6 py-4">
+                                        @can('use form-builder')
+                                            <x-link class="bg-indigo-700 text-white hover:bg-indigo-800 focus:ring-indigo-300" href="{{ route('form-builder', $institution) }}">
+                                                Form Builder
+                                            </x-link>
+                                        @endcan
+                                        @can('edit a institution')
+                                            <x-link class="bg-indigo-700 text-white hover:bg-indigo-800 focus:ring-indigo-300" href="{{ route('institutions.edit', $institution) }}">
+                                                <svg class="feather feather-check-square mr-1 h-4 w-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                                                     stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                                                    <polyline points="3 6 5 6 21 6"></polyline>
-                                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                                                    <line x1="10" y1="11" x2="10" y2="17"></line>
-                                                    <line x1="14" y1="11" x2="14" y2="17"></line>
-                                                </svg> Delete
-                                            </x-danger-button>
-                                        </form>
+                                                    <polyline points="9 11 12 14 22 4"></polyline>
+                                                    <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                                                </svg> Edit
+                                            </x-link>
+                                        @endcan
+                                        @can('delete a institution')
+                                            <form class="inline-block" method="POST" action="{{ route('institutions.destroy', $institution) }}">
+                                                @csrf
+                                                @method('DELETE')
+                                                <x-danger-button type="submit" onclick="return confirm('Are you sure?')">
+                                                    <svg class="feather feather-trash-2 mr-1 h-4 w-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                                        stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                                        <polyline points="3 6 5 6 21 6"></polyline>
+                                                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                                        <line x1="10" y1="11" x2="10" y2="17"></line>
+                                                        <line x1="14" y1="11" x2="14" y2="17"></line>
+                                                    </svg> Delete
+                                                </x-danger-button>
+                                            </form>
+                                        @endcan
                                     </td>
-                                @endcan
+                                @endcanany
                             </tr>
                         @endforeach
                     </tbody>

@@ -114,4 +114,14 @@ class InstitutionController extends Controller
 
         return redirect()->back()->banner('Institution deleted successfully.');
     }
+
+    /**
+     * Show the form builder for the institution.
+     */
+    public function formBuilder(Institution $institution)
+    {
+        Gate::authorize('use form-builder');
+
+        return view('institutions.form-builder', compact('institution'));
+    }
 }

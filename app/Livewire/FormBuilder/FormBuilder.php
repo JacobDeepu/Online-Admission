@@ -2,23 +2,25 @@
 
 namespace App\Livewire\FormBuilder;
 
-use App\Models\FormSection;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
 class FormBuilder extends Component
 {
+    public $institution;
+
     public $sections;
 
-    public function mount()
+    public function mount($institution)
     {
+        $this->institution = $institution;
         $this->loadSections();
     }
 
     #[On('refresh-form-builder')]
     public function loadSections()
     {
-        $this->sections = FormSection::with(['subSections', 'fields'])->get();
+        $this->sections = $this->institution->sections->load(['subSections', 'fields']);
     }
 
     public function render()

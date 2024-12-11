@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\FormBuilderController;
 use App\Http\Controllers\InstitutionController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\RoleController;
@@ -43,8 +42,6 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 
-    Route::get('/form-builder', [FormBuilderController::class, 'index']);
-
     Route::resource('registration', RegistrationController::class)
         ->only([
             'index', 'show',
@@ -55,5 +52,6 @@ Route::middleware([
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
     Route::resource('institutions', InstitutionController::class);
+    Route::get('/institutions/{institution}/form-builder', [InstitutionController::class, 'formBuilder'])->name('form-builder');
 });
 Route::get('/export-pdf/{registration}', [RegistrationController::class, 'exportPDF'])->name('export');

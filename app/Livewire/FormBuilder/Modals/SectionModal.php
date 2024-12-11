@@ -4,6 +4,8 @@ namespace App\Livewire\FormBuilder\Modals;
 
 use App\Models\FormSection;
 use App\Models\Institution;
+use Livewire\Attributes\Computed;
+use Livewire\Attributes\Locked;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -14,6 +16,9 @@ class SectionModal extends Component
 
     public $section;
 
+    #[Locked]
+    public $institutionId;
+
     #[Validate('required|string|max:255')]
     public $name;
 
@@ -23,20 +28,27 @@ class SectionModal extends Component
     #[Validate('nullable|string|max:255')]
     public $description;
 
-    #[Validate('required|exists:institutions,id')]
-    public $institutionId;
+    public function mount($institutionId)
+    {
+        $this->institutionId = $institutionId;
+    }
+
+    #[Computed()]
+    public function institution()
+    {
+        return Institution::find($this->institutionId);
+    }
 
     #[On('open-section-modal')]
     public function open($section = null)
     {
-        $this->reset();
+        $this->institutionId = $this->pull('institutionId');
 
         if ($section) {
             $this->section = FormSection::find($section);
             $this->name = $this->section->name;
             $this->icon = $this->section->icon;
             $this->description = $this->section->description;
-            $this->institutionId = $this->section->institution_id;
         }
 
         $this->isOpen = true;
@@ -49,11 +61,10 @@ class SectionModal extends Component
 
     public function create()
     {
-        FormSection::create([
+        $this->institution->sections()->create([
             'name' => $this->name,
             'icon' => $this->icon,
             'description' => $this->description,
-            'institution_id' => $this->institutionId,
         ]);
 
         $this->dispatch('refresh-form-builder');
@@ -65,7 +76,6 @@ class SectionModal extends Component
             'name' => $this->name,
             'icon' => $this->icon,
             'description' => $this->description,
-            'institution_id' => $this->institutionId,
         ]);
 
         $this->dispatch('refresh-section.{$this->section->id}');
@@ -82,8 +92,6 @@ class SectionModal extends Component
 
     public function render()
     {
-        $institutions = Institution::all();
-
-        return view('livewire.form-builder.modals.section-modal', compact('institutions'));
+        return view('livewire.form-builder.modals.section-modal');
     }
 }
