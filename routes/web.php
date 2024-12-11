@@ -54,6 +54,7 @@ Route::middleware([
     Route::resource('users', UserController::class);
     Route::resource('institutions', InstitutionController::class);
     Route::get('/institutions/{institution}/form-builder', [InstitutionController::class, 'formBuilder'])->name('form-builder');
+    Route::resource('form-submissions', FormSubmissionController::class)->only('index');
 });
 Route::get('/export-pdf/{registration}', [RegistrationController::class, 'exportPDF'])->name('export');
 Route::get('/print/{formSubmission}', [FormSubmissionController::class, 'print'])->name('print');

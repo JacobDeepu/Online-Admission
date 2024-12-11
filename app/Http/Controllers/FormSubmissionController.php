@@ -9,6 +9,14 @@ use Illuminate\Support\Str;
 class FormSubmissionController extends Controller
 {
     /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        return view('form-submissions.index');
+    }
+
+    /**
      * Print the form submission.
      */
     public function print(FormSubmission $formSubmission)
