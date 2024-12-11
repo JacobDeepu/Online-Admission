@@ -130,7 +130,7 @@ class InstitutionController extends Controller
      */
     public function applicationForm(Institution $institution)
     {
-        $instructionsPath = 'images/instructions'.$institution->code.'.jpg';
+        $instructionsPath = 'images/instructions/'.$institution->code.'.jpg';
 
         return view('institutions.application-form', compact('institution', 'instructionsPath'));
     }
