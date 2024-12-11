@@ -42,7 +42,7 @@ class FieldModal extends Component
 
     public function updatedLabel()
     {
-        $this->name = strtolower(str_replace(' ', '_', $this->label));
+        $this->name = strtolower(preg_replace('/[^a-zA-Z0-9_]/', '', str_replace(' ', '_', $this->label)));
     }
 
     protected function rules()
