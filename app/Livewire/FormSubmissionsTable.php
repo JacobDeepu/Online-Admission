@@ -2,13 +2,16 @@
 
 namespace App\Livewire;
 
+use App\Exports\FormSubmissionsExport;
 use App\Models\FormSubmission;
 use App\Models\Institution;
 use Illuminate\Database\Eloquent\Builder;
+use Maatwebsite\Excel\Facades\Excel;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 use Rappasoft\LaravelLivewireTables\Views\Filters\DateFilter;
 use Rappasoft\LaravelLivewireTables\Views\Filters\MultiSelectFilter;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class FormSubmissionsTable extends DataTableComponent
 {
@@ -16,7 +19,11 @@ class FormSubmissionsTable extends DataTableComponent
 
     public function configure(): void
     {
-        $this->setPrimaryKey('id');
+        $this->setPrimaryKey('id')
+            ->setBulkActions([
+                'export' => 'Export',
+            ])
+            ->setSelectAllEnabled();
     }
 
     public function columns(): array
@@ -62,5 +69,14 @@ class FormSubmissionsTable extends DataTableComponent
                         ->whereDate('form_submissions.created_at', $value);
                 }),
         ];
+    }
+
+    public function export(): BinaryFileResponse
+    {
+        $data = $this->getSelected();
+
+        $this->clearSelected();
+
+        return Excel::download(new FormSubmissionsExport($data), 'applications.xlsx');
     }
 }
