@@ -30,8 +30,8 @@
 
     @case('date')
         <div class="mt-0 sm:col-span-4">
-            <x-input-float-label class="block w-full" name="formData.{{ $field['name'] }}" type="date" wire:model="formData.{{ $field['name'] }}" label="{{ __($field['label']) }}" @mouseenter="addFocus"
-                isRequired="{{ $field['is_required'] }}" />
+            <x-input-float-label class="block w-full" name="formData.{{ $field['name'] }}" type="date" wire:model.blur="formData.{{ $field['name'] }}" label="{{ __($field['label']) }}"
+                @mouseenter="addFocus" isRequired="{{ $field['is_required'] }}" />
         </div>
     @break
 

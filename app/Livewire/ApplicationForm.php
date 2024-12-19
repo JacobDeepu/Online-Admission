@@ -3,8 +3,10 @@
 namespace App\Livewire;
 
 use App\Models\FormSubmission;
+use Carbon\Carbon;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
+use NumberFormatter;
 
 class ApplicationForm extends Component
 {
@@ -46,6 +48,21 @@ class ApplicationForm extends Component
 
         if ($this->submissionId) {
             $this->showModal = true;
+        }
+    }
+
+    public function updatedFormDataDateOfBirth()
+    {
+        if ($this->formData['date_of_birth']) {
+            $date = new Carbon($this->formData['date_of_birth']);
+
+            $this->formData['age'] = Carbon::parse($date)->age;
+
+            $dayInWords = NumberFormatter::create('en', NumberFormatter::SPELLOUT)->format($date->day);
+            $month = $date->format('F');
+            $yearInWords = NumberFormatter::create('en', NumberFormatter::SPELLOUT)->format($date->year);
+
+            $this->formData['date_of_birth_word'] = ucfirst("{$dayInWords} {$month} {$yearInWords}");
         }
     }
 
