@@ -1,5 +1,5 @@
 <x-guest-layout>
-    <div class="min-h-screen bg-gray-300 bg-hero-bg bg-cover bg-center bg-no-repeat">
+    <div class="min-h-screen bg-gray-300 bg-hero-bg bg-[length:50%] bg-center bg-repeat">
         <header class="bg-white shadow">
             <div class="bg-{{ $institution->color_code }}-600">
                 <div class="mx-auto max-w-screen-xl px-4 py-3">
