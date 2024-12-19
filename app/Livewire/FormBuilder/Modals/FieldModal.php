@@ -34,15 +34,24 @@ class FieldModal extends Component
     #[Validate('required|string|in:text,number,date,email,textarea,select,radio,checkbox|max:255')]
     public $type;
 
-    #[Validate('nullable|string|max:255')]
+    #[Validate('nullable|string')]
     public $options;
 
     #[Validate('nullable|string|max:255')]
-    public $validationRules = 'required|string|max:255';
+    public $validationRules;
 
     public function updatedLabel()
     {
         $this->name = strtolower(preg_replace('/[^a-zA-Z0-9_]/', '', str_replace(' ', '_', $this->label)));
+    }
+
+    public function updatedIsRequired()
+    {
+        if ($this->isRequired) {
+            $this->validationRules = 'required|string|max:255';
+        } else {
+            $this->validationRules = 'nullable|string|max:255';
+        }
     }
 
     protected function rules()
