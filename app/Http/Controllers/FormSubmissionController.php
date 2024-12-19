@@ -17,6 +17,20 @@ class FormSubmissionController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     */
+    public function show(FormSubmission $formSubmission)
+    {
+        $data = [
+            'title' => 'Application Form',
+            'formSubmission' => $formSubmission,
+            'headerPath' => 'storage/'.$formSubmission->institution->header_file_path,
+        ];
+
+        return view('form-submissions.show', $data);
+    }
+
+    /**
      * Print the form submission.
      */
     public function print(FormSubmission $formSubmission)

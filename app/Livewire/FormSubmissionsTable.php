@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Maatwebsite\Excel\Facades\Excel;
 use Rappasoft\LaravelLivewireTables\DataTableComponent;
 use Rappasoft\LaravelLivewireTables\Views\Column;
+use Rappasoft\LaravelLivewireTables\Views\Columns\LinkColumn;
 use Rappasoft\LaravelLivewireTables\Views\Filters\DateFilter;
 use Rappasoft\LaravelLivewireTables\Views\Filters\MultiSelectFilter;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -36,9 +37,28 @@ class FormSubmissionsTable extends DataTableComponent
             Column::make('Name', 'submission_data->name')
                 ->sortable(),
             Column::make('Status', 'status')
-                ->sortable(),
+                ->format(
+                    function ($value) {
+                        $class = 'flex justify-center items-center py-2 px-3 rounded-full ';
+                        if ($value != 'pending') {
+                            return '<span class="'.$class.'bg-teal-100 text-teal-800 dark:bg-teal-800/30 dark:text-teal-500">'.ucfirst($value).'</span>';
+                        } else {
+                            return '<span class="'.$class.'bg-red-100 text-red-800 dark:bg-red-800/30 dark:text-red-500">'.ucfirst($value).'</span>';
+                        }
+                    }
+                )
+                ->html(),
             Column::make('Date', 'created_at')
                 ->sortable(),
+            LinkColumn::make('Action')
+                ->title(fn ($row) => 'View')
+                ->location(fn ($row) => route('form-submissions.show', $row))
+                ->attributes(function ($row) {
+                    return [
+                        'class' => 'inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md font-semibold text-xs uppercase tracking-widest focus:outline-none focus:ring-2 focus:ring-offset-2 transition ease-in-out duration-150 bg-indigo-950 text-white hover:bg-indigo-950 focus:ring-indigo-300',
+                        'wire:navigate' => '',
+                    ];
+                }),
         ];
     }
 
